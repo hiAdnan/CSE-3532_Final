@@ -1,21 +1,20 @@
+/* PH_TUBE\src\components\CategoryBar.jsx */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-function CategoryBar({ categories, onCategorySelect }) {
+function CategoryBar({ categories, selectedCategory, onCategorySelect }) {
   return (
-    <div className="flex overflow-x-scroll gap-4 p-4 bg-gray-100">
-      <button
-        onClick={() => onCategorySelect(null)}
-        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-      >
-        All
-      </button>
+    <div className="flex justify-center gap-4 p-4 bg-gray-50 shadow-sm sticky top-0 z-50">
       {categories.map((category) => (
         <button
-          key={category.category_id}
+          key={category.category_id || "all"} // Ensure a unique key for "All"
           onClick={() => onCategorySelect(category)}
-          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+          className={`px-6 py-2 text-sm font-semibold rounded-full ${
+            selectedCategory === category
+              ? "bg-red-500 text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          }`}
         >
           {category.category}
         </button>
@@ -24,4 +23,4 @@ function CategoryBar({ categories, onCategorySelect }) {
   );
 }
 
-export default CategoryBar; 
+export default CategoryBar;
